@@ -14,8 +14,7 @@ interface ICustomDefine {
 	int INQUIRE=4; // 전체계좌정보출력
 	int EXIT=5; // 프로그램종료
 	
-	double AINTERESTRATE = 0.07; //신용등급 A의 이자율
-	double BINTERESTRATE = 0.04; //신용등급 B의 이자율
-	double CINTERESTRATE = 0.02; //신용등급 C의 이자율
-
+	double A_INTEREST = 0.07; //신용등급 A의 이자율
+	double B_INTEREST = 0.04; //신용등급 B의 이자율
+	double C_INTEREST = 0.02; //신용등급 C의 이자율
 }

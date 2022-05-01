@@ -1,14 +1,17 @@
 package banking;
 
+import java.util.Objects;
+
+
 /*
 Account의 자식클래스로 신용도가 높은 고객에게 개설이 허용되며 높은 이율의 계좌이다.
 생성자를 통해서 이율정보(이자비율의정보)를 초기화 할수있도록 정의한다.
 */
 public class HighCreditAccount extends Account implements ICustomDefine {
-
-	double interestRate; // 이자율
-	double creditRate; //신용이자율
-	String credit; //신용등급
+	
+	private double interestRate; // 이자율
+	private double creditRate; //신용이자율
+	private String credit; //신용등급
 	
 	//생성자
 	public HighCreditAccount(String accountNumber, String name, int balance,
@@ -16,16 +19,16 @@ public class HighCreditAccount extends Account implements ICustomDefine {
 		super(accountNumber, name, balance);
 		this.interestRate = interestRate;
 		
-		this.credit = credit.toUpperCase();
+		this.credit = credit.toUpperCase(); //선택된 신용등급에 따라 추가이자율 설정
 		switch (credit.toUpperCase()) {
 		case "A" :
-			this.creditRate = AINTERESTRATE;
+			this.creditRate = A_INTEREST;
 			break;
 		case "B" :
-			this.creditRate = BINTERESTRATE;
+			this.creditRate = B_INTEREST;
 			break;
 		case "C" :
-			this.creditRate = CINTERESTRATE;
+			this.creditRate = C_INTEREST;
 			break;
 		}
 	}
@@ -33,12 +36,48 @@ public class HighCreditAccount extends Account implements ICustomDefine {
 	@Override
 	void showAccInfo() {
 		super.showAccInfo();
-		System.out.println("기본이자>"+(int)interestRate+"%");
-		System.out.println("신용등급>"+credit);
-		System.out.println("---------------");
-		System.out.println();
+		System.out.println("|  기본이자 : "+(int)interestRate+"\t\t\t|");
+		System.out.println("|  신용등급 : "+credit+"\t\t\t|");
+		System.out.println("---------------------------------");
 	}
 
+	public double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	public double getCreditRate() {
+		return creditRate;
+	}
+
+	public void setCreditRate(double creditRate) {
+		this.creditRate = creditRate;
+	}
+
+	public String getCredit() {
+		return credit;
+	}
+
+	public void setCredit(String credit) {
+		this.credit = credit;
+	}
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.getAccountNumber());
+	}
+	@Override
+	public boolean equals(Object obj) {
+		HighCreditAccount other = (HighCreditAccount)obj;
+		if (other.getAccountNumber().equals(super.getAccountNumber())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 }
