@@ -6,13 +6,12 @@ import java.util.Scanner;
 /*
 main 메서드를 포함한 클래스. 프로그램은 여기서 실행한다. 
 */
-public class BankingSystemMain2 implements ICustomDefine2 {
+public class BankingSystemMainJDBC implements ICustomDefineJDBC {
 
 	public static void main(String[] args) {
 
 		Scanner scan = new Scanner(System.in);
-		AccountManager2 handler = new AccountManager2();
-		handler.readAccountInfo();;
+		AccountManagerJDBC handler = new AccountManagerJDBC();
 		
 		while (true) {
 
@@ -35,14 +34,13 @@ public class BankingSystemMain2 implements ICustomDefine2 {
 					break;
 				case EXIT: //프로그램종료
 					System.out.println("프로그램종료");
-					handler.saveAccountInfo();;
 					return;
 				default: // 다른 숫자들어오면 지정한 사용자예외발생
-					MenuSelectException2 ex = new MenuSelectException2();
+					MenuSelectExceptionJDBC ex = new MenuSelectExceptionJDBC();
 					throw ex;
 				}//// switch 끝
 			}
-			catch(MenuSelectException2 e) { // 사용자 예외는 숫자문제임을 알려줌
+			catch(MenuSelectExceptionJDBC e) { // 사용자 예외는 숫자문제임을 알려줌
 				System.out.println("숫자를 잘못입력하셨습니다.");
 			}
 			catch(Exception e) { // nextInt()에 숫자 이외의 것이 들어오면 일반예외발생

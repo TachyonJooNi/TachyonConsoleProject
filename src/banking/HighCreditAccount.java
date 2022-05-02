@@ -40,7 +40,23 @@ public class HighCreditAccount extends Account implements ICustomDefine {
 		System.out.println("|  신용등급 : "+credit+"\t\t\t|");
 		System.out.println("---------------------------------");
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.getAccountNumber());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		HighCreditAccount other = (HighCreditAccount)obj;
+		if (other.getAccountNumber().equals(super.getAccountNumber())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public double getInterestRate() {
 		return interestRate;
 	}
@@ -65,19 +81,6 @@ public class HighCreditAccount extends Account implements ICustomDefine {
 		this.credit = credit;
 	}
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(super.getAccountNumber());
-	}
-	@Override
-	public boolean equals(Object obj) {
-		HighCreditAccount other = (HighCreditAccount)obj;
-		if (other.getAccountNumber().equals(super.getAccountNumber())) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
 	
 }

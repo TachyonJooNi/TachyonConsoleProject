@@ -6,14 +6,14 @@ import java.util.Objects;
 /*
 계좌정보를 표현한 클래스로 NormalAccount, HighCreditAccount의 부모클래스가 된다. 
 */
-public abstract class Account2 implements Serializable {
+public abstract class AccountJDBC implements Serializable {
 
 	private String accountNumber; //계좌번호
 	private String name; //이름
 	private int balance; //잔고
 	
 	//생성자
-	public Account2(String accountNumber, String name, int balance) {
+	public AccountJDBC(String accountNumber, String name, int balance) {
 		this.accountNumber = accountNumber;
 		this.name = name;
 		this.balance = balance;
@@ -57,7 +57,7 @@ public abstract class Account2 implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		Account2 other = (Account2) obj;
+		AccountJDBC other = (AccountJDBC) obj;
 		if (Objects.equals(accountNumber, other.accountNumber))
 			return true;
 		else

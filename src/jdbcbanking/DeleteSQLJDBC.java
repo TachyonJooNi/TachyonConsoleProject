@@ -1,9 +1,9 @@
 package jdbcbanking;
 
 
-public class DeleteSQL2 extends IConnectImpl2 {
+public class DeleteSQLJDBC extends IConnectImplJDBC {
 
-	public DeleteSQL2() {
+	public DeleteSQLJDBC() {
 		super("kosmo", "1234");
 	}
 	
@@ -28,6 +28,6 @@ public class DeleteSQL2 extends IConnectImpl2 {
 		}
 	}
 	public static void main(String[] args) {
-		new DeleteSQL2().execute();
+		new DeleteSQLJDBC().execute();
 	}
 }

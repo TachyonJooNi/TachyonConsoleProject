@@ -1,6 +1,6 @@
 package jdbcbanking;
 
-public interface IConnect2 {
+public interface IConnectJDBC {
 	
 	/*
 	멤버상수

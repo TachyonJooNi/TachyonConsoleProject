@@ -21,22 +21,13 @@ public class NormalAccount extends Account {
 		super.showAccInfo();
 		System.out.println("|  기본이자 : "+(int)interestRate+"\t\t\t|");
 		System.out.println("---------------------------------");
-
-
-	}
-
-	public double getInterestRate() {
-		return interestRate;
-	}
-
-	public void setInterestRate(double interestRate) {
-		this.interestRate = interestRate;
 	}
 	
 	@Override
 	public int hashCode() {
 		return Objects.hash(super.getAccountNumber());
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		NormalAccount other = (NormalAccount)obj;
@@ -47,4 +38,14 @@ public class NormalAccount extends Account {
 			return false;
 		}
 	}
+	
+	public double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
+	
+	
 }

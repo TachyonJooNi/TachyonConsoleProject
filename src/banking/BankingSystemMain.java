@@ -12,7 +12,7 @@ public class BankingSystemMain implements ICustomDefine {
 
 		Scanner scan = new Scanner(System.in);
 		AccountManager handler = new AccountManager();
-		handler.readAccountInfo();;
+		handler.readAccountInfo(); // 저장데이터 불러오기
 		
 		while (true) {
 
@@ -35,7 +35,7 @@ public class BankingSystemMain implements ICustomDefine {
 					break;
 				case EXIT: //프로그램종료
 					System.out.println("프로그램종료");
-					handler.saveAccountInfo();;
+					handler.saveAccountInfo();; // 데이터 저장
 					return;
 				default: // 다른 숫자들어오면 지정한 사용자예외발생
 					MenuSelectException ex = new MenuSelectException();

@@ -19,13 +19,27 @@ public abstract class Account implements Serializable {
 		this.balance = balance;
 	}
 	
-	void showAccInfo() {
+	void showAccInfo() { // 정보출력
 		System.out.println("|\t\t\t\t|");
 		System.out.println("|  계좌번호 : "+ accountNumber+"\t\t\t|");
 		System.out.println("|  고객이름 : "+ name+"\t\t\t|");
 		System.out.println("|  잔   고 : "+ balance+"\t\t|");
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Account other = (Account) obj;
+		if (Objects.equals(accountNumber, other.accountNumber))
+			return true;
+		else
+			return false;
+	}
+	
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -48,19 +62,5 @@ public abstract class Account implements Serializable {
 
 	public void setBalance(int balance) {
 		this.balance = balance;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(accountNumber);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Account other = (Account) obj;
-		if (Objects.equals(accountNumber, other.accountNumber))
-			return true;
-		else
-			return false;
 	}
 }
