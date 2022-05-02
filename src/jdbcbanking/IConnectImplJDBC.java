@@ -87,11 +87,6 @@ public class IConnectImplJDBC implements IConnectJDBC {
 		Scanner scan = new Scanner(System.in);
 		System.out.print(title +" : ");
 		String inputStr = scan.nextLine();
-		/*
-		equalsIgnoreCase()
-			: equals()와 동일하게 문자열이 같은지를 비교하는 메서드로
-			대소문자를 구분없이 비교할 수 있다.
-		*/
 		if("EXIT".equalsIgnoreCase(inputStr)) {
 			System.out.println("프로그램을 종료합니다.");
 			//자원반납

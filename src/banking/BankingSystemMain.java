@@ -16,11 +16,12 @@ public class BankingSystemMain implements ICustomDefine {
 		
 		while (true) {
 
+			try {
 			handler.showMenu();
 
-			try {
-			int choice = scan.nextInt();
-				switch (choice) {
+			int choice1 = scan.nextInt();
+			int choice2 = 0;
+				switch (choice1) {
 				case MAKE: //계좌개설
 					handler.makeAccount();
 					break;
@@ -37,6 +38,18 @@ public class BankingSystemMain implements ICustomDefine {
 					System.out.println("프로그램종료");
 					handler.saveAccountInfo();; // 데이터 저장
 					return;
+				case AUTOSAVE : //자동저장
+					System.out.println("1.자동저장시작  2.자동저장중지");
+					choice2 = scan.nextInt();
+					if(choice2==1) {
+//						handler.setDaemon(true);
+						handler.start();
+						break;
+					}
+					else if(choice2==2) {
+						handler.interrupt();
+						break;
+					}
 				default: // 다른 숫자들어오면 지정한 사용자예외발생
 					MenuSelectException ex = new MenuSelectException();
 					throw ex;

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DepositMoneyJDBC extends IConnectImplJDBC implements ICustomDefineJDBC {
+
 	public DepositMoneyJDBC() {
 		super("kosmo", "1234");
 	}
@@ -25,20 +26,17 @@ public class DepositMoneyJDBC extends IConnectImplJDBC implements ICustomDefineJ
 				return;
 			}
 
-			String sql1 = "SELECT * FROM account "
-					+ "WHERE accountNumber like '%'||?||'%'";
+			String sql1 = "SELECT * FROM account " + "WHERE accountNumber like '%'||?||'%'";
 
 			psmt = con.prepareStatement(sql1);
 			psmt.setString(1, searchNumber);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				String accountNumber = rs.getString(1);
-				String balance = rs.getString(3);
-				String interestRate = rs.getString(4);
+				Double balance = rs.getDouble(3);
+				Double interestRate = rs.getDouble(4);
 				String credit = rs.getString(5);
 
-				double douBalance = Double.parseDouble(balance);
-				double douInterestRate = Double.parseDouble(interestRate);
 				int depositMoney = 0;
 				double creditRate = 0;
 				switch (credit) {
@@ -53,15 +51,13 @@ public class DepositMoneyJDBC extends IConnectImplJDBC implements ICustomDefineJ
 					break;
 				}
 				if (credit.equals(null)) {
-					depositMoney = (int) (douBalance * (1 + douInterestRate / 100) + money);
+					depositMoney = (int) (balance * (1 + interestRate / 100) + money);
 				} else {
-					depositMoney = (int) (douBalance * (1 + creditRate + douInterestRate / 100) + money);
+					depositMoney = (int) (balance * (1 + creditRate + interestRate / 100) + money);
 				}
 
-				String sql2 = "UPDATE account "
-								+ " SET balance=? "
-								+ " WHERE accountNumber=?";
-				psmt = con.prepareStatement(sql2);
+				String sql = "UPDATE account " + " SET balance=? " + " WHERE accountNumber=?";
+				psmt = con.prepareStatement(sql);
 				psmt.setString(2, accountNumber);
 				psmt.setInt(1, depositMoney);
 

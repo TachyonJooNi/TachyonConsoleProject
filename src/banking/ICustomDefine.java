@@ -13,6 +13,7 @@ interface ICustomDefine {
 	int WITHDRAW=3; // 출금
 	int INQUIRE=4; // 전체계좌정보출력
 	int EXIT=5; // 프로그램종료
+	int AUTOSAVE=6; // 오토세이브
 	
 	double A_INTEREST = 0.07; //신용등급 A의 이자율
 	double B_INTEREST = 0.04; //신용등급 B의 이자율

@@ -13,14 +13,13 @@ public class MakeAccountJDBC extends IConnectImplJDBC {
 			
 			psmt = con.prepareStatement(query);
 			
-			
 //			while(true) {
 				psmt.setString(1, scanValue("계좌번호"));
 				psmt.setString(2, scanValue("이름"));
 				psmt.setString(3, scanValue("잔고"));
 				psmt.setString(4, scanValue("이자율"));
 				if(choice==1) {
-					psmt.setString(5, scanValue("(null)"));
+					psmt.setString(5, "(null)");
 				}
 				else {
 					psmt.setString(5, scanValue("신용등급"));

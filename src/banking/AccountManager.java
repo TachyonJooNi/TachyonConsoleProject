@@ -11,7 +11,7 @@ import java.util.Scanner;
 /*
 컨트롤 클래스로 프로그램의 전반적인 기능을 구현한다. 
 */
-public class AccountManager{
+public class AccountManager extends Thread {
 
 	private HashSet<Account> myAccount;
 	
@@ -24,9 +24,9 @@ public class AccountManager{
 	// 메뉴출력 메서드
 	void showMenu() {
 		System.out.println("==============Menu===============");
-		System.out.printf("|   1.계좌개설       2.입  금      |%n");
-		System.out.printf("|   3.출   금       4.계좌정보출력  |%n");
-		System.out.printf("|   5.프로그램종료                 |%n");
+		System.out.println("|   1.계좌개설       2.입  금      |");
+		System.out.println("|   3.출   금       4.계좌정보출력  |");
+		System.out.println("|   5.프로그램종료    6.자동저장     |");
 		System.out.println("=================================");
 		System.out.print("메뉴선택>>>");
 	}
@@ -43,8 +43,8 @@ public class AccountManager{
 			
 			// 기본정보 입력
 			System.out.println("===========신규계좌개설=============");
-			System.out.printf("|           -계좌선택-            |%n");
-			System.out.printf("|    1.보통계좌      2.신용신뢰계좌  |%n");
+			System.out.println("|           -계좌선택-            |");
+			System.out.println("|    1.보통계좌      2.신용신뢰계좌  |");
 			System.out.println("=================================");
 			System.out.print("선택:");
 			int choice = scan.nextInt();
@@ -66,7 +66,7 @@ public class AccountManager{
 				if(iAccountNumber.equals(acc.getAccountNumber())) {
 					System.out.println("입력하신 계좌번호가 이미 존재합니다.");
 					System.out.println("1.초기화면으로 돌아가기");
-					System.out.println("2.기존계좌 해지후 계속 진행하기");
+					System.out.println("2.기존계좌 해지");
 					overlap = scan.nextInt();
 					if(overlap==1) {
 						System.out.println("초기화면으로 돌아갑니다.");
@@ -75,9 +75,6 @@ public class AccountManager{
 					else if (overlap==2) {
 						myAccount.remove(acc);
 						System.out.println("기존계좌를 해지하셨습니다.");
-					}
-					else {
-						System.out.println("잘못입력하셨습니다.");
 						return;
 					}
 				}
@@ -113,8 +110,8 @@ public class AccountManager{
 			boolean isFind = false;
 			
 			System.out.println("=============입  금===============");
-			System.out.printf("| -계좌번호와 입글할 금액을 입력하세요- |%n");
-			System.out.printf("| -입금은 500원 단위로만 가능합니다-   |%n");
+			System.out.println("| -계좌번호와 입글할 금액을 입력하세요- |");
+			System.out.println("| -입금은 500원 단위로만 가능합니다-   |");
 			System.out.println("=================================");
 			System.out.println("계좌번호:");
 			String searchNumber = scan.next(); 	//계좌번호 입력
@@ -166,8 +163,8 @@ public class AccountManager{
 			boolean isFind = false;
 			
 			System.out.println("=============출  금===============");
-			System.out.printf("| -계좌번호와 출글할 금액을 입력하세요- |%n");
-			System.out.printf("| -출금은 1000원 단위로만 가능합니다-  |%n");
+			System.out.println("| -계좌번호와 출글할 금액을 입력하세요- |");
+			System.out.println("| -출금은 1000원 단위로만 가능합니다-  |");
 			System.out.println("=================================");
 			System.out.println("계좌번호:");
 			String searchNumber = scan.next();
@@ -236,18 +233,19 @@ public class AccountManager{
 	//데이터 저장
 	public void saveAccountInfo() {
 			try {
-				ObjectOutput out = new ObjectOutputStream
-						(new FileOutputStream("src/banking/AccountInfo.obj"));
-				
-				for(Account acc : myAccount) { // 향상된 for문으로 하나씩 꺼내서 데이터 저장
-					out.writeObject(acc);
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-				System.out.println("계좌 정보 직렬화시 예외발생");
+			
+			ObjectOutput out = new ObjectOutputStream
+					(new FileOutputStream("src/banking/AccountInfo.obj"));
+			
+			for(Account acc : myAccount) { // 향상된 for문으로 하나씩 꺼내서 데이터 저장
+				out.writeObject(acc);
 			}
 		}
+		catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("계좌 정보 직렬화시 예외발생");
+		}
+	}
 	
 	//데이터 불러오기
 	public void readAccountInfo() {
@@ -264,5 +262,29 @@ public class AccountManager{
 			System.out.println("더 이상 읽을 객체가 없습니다.");
 		}
 		System.out.println("계좌정보가 복원되었습니다.");
+	}
+	
+	public void run() {
+		
+		while(!isInterrupted()) {
+			try {
+				ObjectOutput out = new ObjectOutputStream
+						(new FileOutputStream("src/banking/AccountInfo.obj"));
+				
+				for(Account acc : myAccount) { // 향상된 for문으로 하나씩 꺼내서 데이터 저장
+					out.writeObject(acc);
+				}
+				System.out.println("자동저장완료");
+				sleep(5000);
+			}
+			catch(InterruptedException e) {
+				System.out.println("자동저장을 중지했습니다.");
+				return;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("자동저장시 예외발생");
+			}
+		}
 	}
 }
