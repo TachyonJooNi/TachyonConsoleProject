@@ -1,21 +1,11 @@
 package jdbcbanking;
 
-import java.util.HashSet;
 import java.util.Scanner;
 
 /*
 컨트롤 클래스로 프로그램의 전반적인 기능을 구현한다. 
 */
 public class AccountManagerJDBC extends IConnectImplJDBC {
-
-	private HashSet<AccountJDBC> myAccount;
-	
-
-	// 생성자
-	public AccountManagerJDBC() {
-		myAccount = new HashSet<AccountJDBC>();
-		
-	}
 
 	// 메뉴출력 메서드
 	void showMenu() {
@@ -91,43 +81,11 @@ public class AccountManagerJDBC extends IConnectImplJDBC {
 	// 전체계좌정보출력
 	public void showAccInfo() {
 		System.out.println("===========계좌정보출력=============");
+		
 		new ShowAccInfoJDBC().execute();
 		
-//		for(AccountJDBC acc : myAccount) {
-//			acc.showAccInfo();
-//		}
 		System.out.println("=====전체 계좌정보가 출력되었습니다=====");
 		System.out.println();
 	}
 	
-//	public void saveAccountInfo() {
-//			try {
-//				ObjectOutput out = new ObjectOutputStream
-//						(new FileOutputStream("src/banking/AccountInfo.obj"));
-//				
-//				for(Account2 acc : myAccount) {
-//					out.writeObject(acc);
-//				}
-//			}
-//			catch(Exception e) {
-//				e.printStackTrace();
-//				System.out.println("계좌 정보 직렬화시 예외발생");
-//			}
-//		}
-//	
-//	public void readAccountInfo() {
-//		try {
-//			ObjectInputStream in = new ObjectInputStream
-//					(new FileInputStream("src/banking/AccountInfo.obj"));
-//			while(true) {
-//				Account2 acc = (Account2)in.readObject();
-//				myAccount.add(acc);
-//				if(acc==null) break;
-//			}
-//		}
-//		catch(Exception e) {
-//			System.out.println("더 이상 읽을 객체가 없습니다.");
-//		}
-//		System.out.println("계좌정보가 복원되었습니다.");
-//	}
 }

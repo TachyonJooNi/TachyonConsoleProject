@@ -1,7 +1,6 @@
 package jdbcbanking;
 
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public class ShowAccInfoJDBC extends IConnectImplJDBC implements ICustomDefineJDBC {
 
